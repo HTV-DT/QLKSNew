@@ -17,14 +17,18 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
-import com.example.demo.model.BangCong;
+import com.example.demo.model.CTBangCong;
 import com.example.demo.model.NhanVien;
+import com.example.demo.repository.CTBangCongRepository;
 
 import lombok.ToString;
 
 public class BangCongImport {
     Scanner sc = new Scanner(System.in);
+    
+    static List<CTBangCong> listBC = new ArrayList<>();
 
     // check that file is of excel type or not
     public static boolean checkExcelFormat(MultipartFile file) {
@@ -40,8 +44,8 @@ public class BangCongImport {
     }
 
     // convert excel to list of nhanvien
-    public static List<BangCong> convertExcelToListOfProduct(InputStream is, List<NhanVien> ds) {
-        List<BangCong> list = new ArrayList<>();
+    public static List<CTBangCong> convertExcelToListOfProduct(InputStream is, List<NhanVien> ds) {
+        List<CTBangCong> list = new ArrayList<>();
         Date gio;
         Time hour;
 
@@ -65,8 +69,8 @@ public class BangCongImport {
                 Iterator<Cell> cells = row.iterator();
 
                 int cid = 0;
-
-                BangCong p = new BangCong();
+                CTBangCong ctBangCong = new CTBangCong();
+               
 
                 while (cells.hasNext()) {
                     Cell cell = cells.next();
@@ -75,42 +79,40 @@ public class BangCongImport {
                             Long a = ((long) cell.getNumericCellValue());
                             for (NhanVien nhanVien : ds) {
                                 if (nhanVien.getMaNV() == a) {
-                                    p.setNhanVien(nhanVien);
-                                    
+                                    ctBangCong.setNv(Set.of(nhanVien));
                                 }
                             }
                             break;
                         case 1:
-                            p.setNgay(cell.getDateCellValue());
+                            ctBangCong.setNgay(cell.getDateCellValue());
                             break;
                         case 2:
                             gio=cell.getDateCellValue();
                             hour=new Time(gio.getTime()); 
-                            p.setGioVao(hour);
+                            ctBangCong.setGioVao(hour);
                             break;
                         case 3:
                             gio=cell.getDateCellValue();
                             hour=new Time(gio.getTime()); 
-                            p.setGioRa(hour);
+                            ctBangCong.setGioRa(hour);
                             break;
                         case 4:
-                            p.setMaLoaiCong(cell.getStringCellValue());
-                            break;
-                        case 5:
-                            p.setTrangThaiCCNV(cell.getBooleanCellValue());
+                            ctBangCong.setMaLoaiCong(cell.getStringCellValue());
                             break;
                         default:
                             break;
                     }
                     cid++;
                 }
-
-                list.add(p);
-                
+                list.add(ctBangCong);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static List<CTBangCong> dsBangCong(){
+        return listBC;
     }
 }

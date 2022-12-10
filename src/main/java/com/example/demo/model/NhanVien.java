@@ -2,7 +2,9 @@ package com.example.demo.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -64,9 +66,6 @@ public class NhanVien {
         @ManyToOne 
         @JoinColumn(name = "phongban_id") // thông qua khóa ngoại phongban_id
         private PhongBan phongBan;
-        @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (nhanVien) (1 địa điểm có nhiều người ở)
-        // MapopedBy trỏ tới tên biến phongBan ở trong nhanVien.
-        private Collection<BangCong> bangCongs;
 
 
         public NhanVien( String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT, PhongBan phongBan) {
@@ -206,5 +205,6 @@ public class NhanVien {
         public void setTrangThai(Boolean trangThai) {
                 this.trangThai = trangThai;
         }
+
 
 }

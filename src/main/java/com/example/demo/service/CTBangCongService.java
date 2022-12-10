@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.model.BangCong;
+import com.example.demo.model.CTBangCong;
 
-public interface BangCongService {
+public interface CTBangCongService {
     public void saveFile(MultipartFile file);
-    List<BangCong> findAllBangCong();
+    List<CTBangCong> findAllBangCong();
 }

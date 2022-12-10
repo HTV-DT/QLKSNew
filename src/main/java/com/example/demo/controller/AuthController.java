@@ -7,7 +7,7 @@ import com.example.demo.dto.response.JwtResponse;
 import com.example.demo.dto.response.ResponMessage;
 import com.example.demo.helper.ExcelExporter;
 import com.example.demo.helper.Helper;
-import com.example.demo.model.BangCong;
+import com.example.demo.model.CTBangCong;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.PhongBan;
 import com.example.demo.model.Role;
@@ -15,7 +15,7 @@ import com.example.demo.model.RoleName;
 import com.example.demo.model.User;
 import com.example.demo.security.jwt.JwtProvider;
 import com.example.demo.security.userprincal.UserPrinciple;
-import com.example.demo.service.BangCongService;
+import com.example.demo.service.CTBangCongService;
 import com.example.demo.service.NhanVienService;
 import com.example.demo.service.PhongBanService;
 import com.example.demo.service.impl.RoleServiceImpl;
@@ -62,7 +62,7 @@ public class AuthController {
     @Autowired
     PhongBanService phongBanService;
     @Autowired
-    BangCongService bangCongService;
+    CTBangCongService bangCongService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm) {
@@ -194,8 +194,8 @@ public class AuthController {
     }
 
     @GetMapping("/bangCongs") // List NhanVien
-    public ResponseEntity<List<BangCong>> listRegisteredBangCong() {
-        List<BangCong> bangCongs = bangCongService.findAllBangCong();
+    public ResponseEntity<List<CTBangCong>> listRegisteredBangCong() {
+        List<CTBangCong> bangCongs = bangCongService.findAllBangCong();
         return ResponseEntity.ok(bangCongs);
     }
 }
