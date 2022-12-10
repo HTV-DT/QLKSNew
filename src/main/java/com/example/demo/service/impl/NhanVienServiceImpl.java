@@ -47,12 +47,8 @@ public class NhanVienServiceImpl implements NhanVienService{
     @Override
     public void saveFile(MultipartFile file) {
         try {
-            List<NhanVien> nhanViens = Helper.convertExcelToListOfProduct(file.getInputStream());
-            for (NhanVien nhanVien : nhanViens) {
-               PhongBan phongBan = phongBanImpl.findBytenPB(nhanVien.getExcelPB());
-                nhanVien.setPhongBan(phongBan);
-            }
-            
+            List<PhongBan> pb =  phongBanImpl.findAllPhongBan();
+            List<NhanVien> nhanViens = Helper.convertExcelToListOfProduct(file.getInputStream(),pb);
             this.nhanVienRepository.saveAll(nhanViens);
         } catch (IOException e) {
             e.printStackTrace();

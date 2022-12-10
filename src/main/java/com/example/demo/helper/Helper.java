@@ -34,7 +34,7 @@ public class Helper {
 
     //convert excel to list of nhanvien
 
-    public static List<NhanVien> convertExcelToListOfProduct(InputStream is) {
+    public static List<NhanVien> convertExcelToListOfProduct(InputStream is, List<PhongBan> pb) {
         List<NhanVien> list = new ArrayList<>();
 
         try {
@@ -95,7 +95,12 @@ public class Helper {
                             p.setSDT(cell.getStringCellValue());
                             break;
                         case 10:
-                            p.setExcelPB(cell.getStringCellValue());
+                            Long a = ((long) cell.getNumericCellValue());
+                            for (PhongBan phongBan : pb) {
+                                if (phongBan.getMaPB() == a) {
+                                    p.setPhongBan(phongBan);
+                                }
+                            }
                             break;
                         default:
                             break;

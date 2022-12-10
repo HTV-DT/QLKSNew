@@ -120,7 +120,7 @@ public class AuthController {
         if (nhanVienService.existsByEmail(addNhanVienForm.getEmail())) {
             return new ResponseEntity<>(new ResponMessage("The email existed"), HttpStatus.OK);
         }
-        PhongBan phongBan=phongBanService.findBymaPB(addNhanVienForm.getPhongBan());
+        PhongBan phongBan=phongBanService.findBymaPB(addNhanVienForm.getPhongban_id());
         NhanVien nhanVien = new NhanVien(addNhanVienForm.getTenNhanSu(), addNhanVienForm.getCCCD(),
                 addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
                 addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
@@ -138,7 +138,7 @@ public class AuthController {
 
     @PutMapping("/updateNhanVien/{id}")
 	public ResponseEntity<NhanVien> updateEmployee(@PathVariable("id") long id ,@RequestBody AddNhanVienForm addNhanVienForm){
-        PhongBan phongBan=phongBanService.findBymaPB(addNhanVienForm.getPhongBan());
+        PhongBan phongBan=phongBanService.findBymaPB(addNhanVienForm.getPhongban_id());
         NhanVien nhanVien = new NhanVien(addNhanVienForm.getTenNhanSu(), addNhanVienForm.getCCCD(),
         addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
         addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),

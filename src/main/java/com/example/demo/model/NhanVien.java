@@ -59,7 +59,6 @@ public class NhanVien {
         @NotBlank
         @Size(max = 50)
         private String sDT;
-        private String excelPB;
         private Boolean trangThai=true;
 
         @ManyToOne 
@@ -208,11 +207,4 @@ public class NhanVien {
                 this.trangThai = trangThai;
         }
 
-        public String getExcelPB() {
-                return this.excelPB;
-        }
-
-        public void setExcelPB(String excelPB) {
-                this.excelPB = excelPB;
-        }
 }

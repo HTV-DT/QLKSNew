@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,9 +33,10 @@ public class BangCongServiceImpl implements BangCongService{
             e.printStackTrace();
         }
     }
+
     @Override
     public List<BangCong> findAllBangCong() {
-        List<BangCong> bangCongs = bangCongRepository.findAll();
+        List<BangCong> bangCongs = bangCongRepository.findAll(Sort.by(Sort.Direction.ASC, "nhanVien"));
         return bangCongs;
     }
 }

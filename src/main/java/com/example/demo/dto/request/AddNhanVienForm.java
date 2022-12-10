@@ -13,21 +13,14 @@ public class AddNhanVienForm {
     private String ngayKyHopDong;
     private String soTK;
     private String sDT;
-    private Long phongBan;
+    private Long phongban_id;
 
-    public Long getPhongBan() {
-        return this.phongBan;
-    }
-
-    public void setPhongBan(Long phongBan) {
-        this.phongBan = phongBan;
-    }
 
   
     public AddNhanVienForm() {
     }
 
-    public AddNhanVienForm(String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT, Long phongBan) {
+    public AddNhanVienForm(String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT, Long phongban_id) {
         this.tenNhanSu = tenNhanSu;
         this.cCCD = cCCD;
         this.email = email;
@@ -38,7 +31,7 @@ public class AddNhanVienForm {
         this.ngayKyHopDong = ngayKyHopDong;
         this.soTK = soTK;
         this.sDT = sDT;
-        this.phongBan = phongBan;
+        this.phongban_id = phongban_id;
     }
 
   /*   public AddNhanVienForm(String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK) {
@@ -133,6 +126,14 @@ public class AddNhanVienForm {
         this.sDT = sDT;
     }
 
+
+    public Long getPhongban_id() {
+        return this.phongban_id;
+    }
+
+    public void setPhongban_id(Long phongban_id) {
+        this.phongban_id = phongban_id;
+    }
  
 
 }

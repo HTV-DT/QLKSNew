@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,8 +13,9 @@ public class BangCong {
     private Long maBC;
     
     private Date ngay;
-    private Date gioVao;
-    private Date gioRa;
+    private Time gioVao;
+    private Time gioRa;
+
     @NotBlank
     private String maLoaiCong;
     private Boolean trangThaiBC=true;
@@ -29,16 +31,16 @@ public class BangCong {
     public BangCong() {
     }
 
-    public BangCong(Date ngay, Date gioVao, Date gioRa, String maLoaiCong, Boolean trangThaiBC, NhanVien nhanVien) {
+    public BangCong(Long maBC, Date ngay, Time gioVao, Time gioRa, String maLoaiCong, Boolean trangThaiBC, Boolean trangThaiCCNV, NhanVien nhanVien) {
+        this.maBC = maBC;
         this.ngay = ngay;
         this.gioVao = gioVao;
         this.gioRa = gioRa;
         this.maLoaiCong = maLoaiCong;
         this.trangThaiBC = trangThaiBC;
+        this.trangThaiCCNV = trangThaiCCNV;
         this.nhanVien = nhanVien;
     }
-
-
 
     public Long getMaBC() {
         return this.maBC;
@@ -56,19 +58,19 @@ public class BangCong {
         this.ngay = ngay;
     }
 
-    public Date getGioVao() {
+    public Time getGioVao() {
         return this.gioVao;
     }
 
-    public void setGioVao(Date gioVao) {
+    public void setGioVao(Time gioVao) {
         this.gioVao = gioVao;
     }
 
-    public Date getGioRa() {
+    public Time getGioRa() {
         return this.gioRa;
     }
 
-    public void setGioRa(Date gioRa) {
+    public void setGioRa(Time gioRa) {
         this.gioRa = gioRa;
     }
 
@@ -92,14 +94,6 @@ public class BangCong {
         this.trangThaiBC = trangThaiBC;
     }
 
-    public NhanVien getNhanVien() {
-        return this.nhanVien;
-    }
-
-    public void setNhanVien(NhanVien nhanVien) {
-        this.nhanVien = nhanVien;
-    }
-
     public Boolean isTrangThaiCCNV() {
         return this.trangThaiCCNV;
     }
@@ -112,5 +106,13 @@ public class BangCong {
         this.trangThaiCCNV = trangThaiCCNV;
     }
 
-    
+    public NhanVien getNhanVien() {
+        return this.nhanVien;
+    }
+
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
+    }
+
+
 }

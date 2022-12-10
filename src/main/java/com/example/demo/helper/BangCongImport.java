@@ -1,19 +1,27 @@
 package com.example.demo.helper;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 import com.example.demo.model.BangCong;
 import com.example.demo.model.NhanVien;
+
+import lombok.ToString;
 
 public class BangCongImport {
     Scanner sc = new Scanner(System.in);
@@ -34,7 +42,10 @@ public class BangCongImport {
     // convert excel to list of nhanvien
     public static List<BangCong> convertExcelToListOfProduct(InputStream is, List<NhanVien> ds) {
         List<BangCong> list = new ArrayList<>();
+        Date gio;
+        Time hour;
 
+       
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(is);
 
@@ -73,10 +84,14 @@ public class BangCongImport {
                             p.setNgay(cell.getDateCellValue());
                             break;
                         case 2:
-                            p.setGioVao(cell.getDateCellValue());
+                            gio=cell.getDateCellValue();
+                            hour=new Time(gio.getTime()); 
+                            p.setGioVao(hour);
                             break;
                         case 3:
-                            p.setGioRa(cell.getDateCellValue());
+                            gio=cell.getDateCellValue();
+                            hour=new Time(gio.getTime()); 
+                            p.setGioRa(hour);
                             break;
                         case 4:
                             p.setMaLoaiCong(cell.getStringCellValue());
