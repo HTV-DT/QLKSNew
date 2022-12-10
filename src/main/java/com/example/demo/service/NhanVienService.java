@@ -15,4 +15,5 @@ public interface NhanVienService {
     public void saveFile(MultipartFile file);
     public boolean deleteById(int id) ;
     public NhanVien updateNhanVien(NhanVien nV,Long id) ;
+    List<NhanVien> search(String keyword);
 }

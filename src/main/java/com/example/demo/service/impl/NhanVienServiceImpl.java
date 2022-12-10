@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,14 @@ public class NhanVienServiceImpl implements NhanVienService{
     }
 
     @Override
+    public List<NhanVien> search(String keyword){
+        if (keyword != null) {
+            return nhanVienRepository.search(keyword);
+        }
+            return nhanVienRepository.findAll();
+    }
+
+    @Override
     public Boolean existsByEmail(String email) {
         return nhanVienRepository.existsByEmail(email);
     }
@@ -40,8 +49,15 @@ public class NhanVienServiceImpl implements NhanVienService{
 
     @Override
     public List<NhanVien> findAllNhanVien() {
-        List<NhanVien> nhanVien = nhanVienRepository.findAll();
-        return nhanVien;
+        List<NhanVien> nhanViens = nhanVienRepository.findAll();
+        List<NhanVien> dsNV=new ArrayList<>();
+        for (NhanVien nhanVien : nhanViens) {
+            if(nhanVien.isTrangThai()==true)
+                {
+                    dsNV.add(nhanVien);
+                }
+        }
+        return dsNV;
     }
     
     @Override

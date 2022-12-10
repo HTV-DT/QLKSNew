@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,15 @@ public class PhongBanServiceImpl implements PhongBanService {
 
     @Override
     public List<PhongBan> findAllPhongBan() {
-        List<PhongBan> phongBan = phongBanRepository.findAll();
-        return phongBan;
+        List<PhongBan> phongBans = phongBanRepository.findAll();
+        List<PhongBan> dsPB=new ArrayList<>();
+        for (PhongBan phongBan : phongBans) {
+            if(phongBan.isTrangThaiPB()==true)
+                {
+                    dsPB.add(phongBan);
+                }
+        }
+        return dsPB;
     }
 
     @Override

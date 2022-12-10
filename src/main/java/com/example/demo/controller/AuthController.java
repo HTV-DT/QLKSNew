@@ -198,4 +198,12 @@ public class AuthController {
         List<CTBangCong> bangCongs = bangCongService.findAllBangCong();
         return ResponseEntity.ok(bangCongs);
     }
+
+    
+    @PostMapping("/search")
+    public ResponseEntity<?> Search(@Valid @RequestBody AddNhanVienForm addNhanVienForm) {
+       List<NhanVien> nhanViens= nhanVienService.search(addNhanVienForm.getTenNhanSu());
+       
+        return new ResponseEntity<>(nhanViens, HttpStatus.OK);
+    }
 }
