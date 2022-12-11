@@ -5,6 +5,7 @@ import com.example.demo.dto.request.SignInForm;
 import com.example.demo.dto.request.SignUpForm;
 import com.example.demo.dto.response.JwtResponse;
 import com.example.demo.dto.response.ResponMessage;
+import com.example.demo.helper.BarCode;
 import com.example.demo.helper.ExcelExporter;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.CTBangCong;
@@ -36,8 +37,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -125,7 +129,10 @@ public class AuthController {
                 addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
                 addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
                 addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan);
-        nhanVienService.save(nhanVien);
+                byte[] qrCode =BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
+                String s = Base64.getEncoder().encodeToString(qrCode);
+                nhanVien.setQrCode(s);
+                nhanVienService.save(nhanVien);
         return new ResponseEntity<>(new ResponMessage("yes"), HttpStatus.OK);
     }
 
@@ -143,6 +150,7 @@ public class AuthController {
         addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
         addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
         addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan);
+        
         return new ResponseEntity<NhanVien>(nhanVienService.updateNhanVien(nhanVien, id), HttpStatus.OK);
 	}
 
@@ -156,7 +164,6 @@ public class AuthController {
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
         if (Helper.checkExcelFormat(file)) {
             // true
-
             this.nhanVienService.saveFile(file);
 
             return new ResponseEntity<>(new ResponMessage("yes"), HttpStatus.OK);
@@ -181,11 +188,10 @@ public class AuthController {
         excelExporter.export(response);
     }
 
-    @PostMapping("/bangcong/upload") // upload list NhanVien file excel
+    @PostMapping("/bangcong/upload") // upload list bangcong file excel
     public ResponseEntity<?> uploadBC(@RequestParam("file") MultipartFile file) {
         if (Helper.checkExcelFormat(file)) {
             // true
-
            bangCongService.saveFile(file);
 
             return new ResponseEntity<>(new ResponMessage("yes"), HttpStatus.OK);
@@ -193,7 +199,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file ");
     }
 
-    @GetMapping("/bangCongs") // List NhanVien
+    @GetMapping("/bangCongs") // List bangcongs
     public ResponseEntity<List<CTBangCong>> listRegisteredBangCong() {
         List<CTBangCong> bangCongs = bangCongService.findAllBangCong();
         return ResponseEntity.ok(bangCongs);
@@ -206,4 +212,17 @@ public class AuthController {
        
         return new ResponseEntity<>(nhanViens, HttpStatus.OK);
     }
+
+    //HttpServletResponse response trả về request
+    @RequestMapping(value = "qrcode", method = RequestMethod.GET)
+	public void qrcode(HttpServletResponse response) throws Exception {
+        List<NhanVien> nhanViens= nhanVienService.search("Vỉ HuynhHuynh");
+        NhanVien nv=nhanViens.get(0);
+        byte[] decodedBytes = Base64.getDecoder().decode(nv.getQrCode());
+		response.setContentType("image/png");
+		OutputStream outputStream = response.getOutputStream();
+		outputStream.write(decodedBytes);
+		outputStream.flush();
+		outputStream.close();
+	}
 }

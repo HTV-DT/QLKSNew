@@ -11,6 +11,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.type.LongType;
+
 
 @Entity
 @Table(name = "NhanVien", uniqueConstraints = { // uniqueConstraints unique in database
@@ -61,6 +63,8 @@ public class NhanVien {
         @NotBlank
         @Size(max = 50)
         private String sDT;
+        @Lob
+        private String qrCode;
         private Boolean trangThai=true;
 
         @ManyToOne 
@@ -206,5 +210,36 @@ public class NhanVien {
                 this.trangThai = trangThai;
         }
 
+
+
+
+        public String getQrCode() {
+                return this.qrCode;
+        }
+
+        public void setQrCode(String qrCode) {
+                this.qrCode = qrCode;
+        }
+       
+      
+
+        @Override
+        public String toString() {
+                return "{" +
+                        " maNV='" + getMaNV() + "'" +
+                        ", tenNhanSu='" + getTenNhanSu() + "'" +
+                        ", cCCD='" + getCCCD() + "'" +
+                        ", email='" + getEmail() + "'" +
+                        ", ngaySinh='" + getNgaySinh() + "'" +
+                        ", hinhAnh='" + getHinhAnh() + "'" +
+                        ", danToc='" + getDanToc() + "'" +
+                        ", quocTich='" + getQuocTich() + "'" +
+                        ", ngayKyHopDong='" + getNgayKyHopDong() + "'" +
+                        ", soTK='" + getSoTK() + "'" +
+                        ", sDT='" + getSDT() + "'" +
+                        ", trangThai='" + isTrangThai() + "'" +
+                        ", phongBan='" + getPhongBan() + "'" +
+                        "}";
+        }
 
 }
