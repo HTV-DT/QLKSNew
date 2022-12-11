@@ -1,6 +1,10 @@
 package com.example.demo.helper;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -19,5 +23,5 @@ public class BarCode {
 			return null;
 		}
 	}
-
+ 
 }

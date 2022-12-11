@@ -214,15 +214,15 @@ public class AuthController {
     }
 
     //HttpServletResponse response trả về request
-    @RequestMapping(value = "qrcode", method = RequestMethod.GET)
-	public void qrcode(HttpServletResponse response) throws Exception {
-        List<NhanVien> nhanViens= nhanVienService.search("Vỉ HuynhHuynh");
-        NhanVien nv=nhanViens.get(0);
-        byte[] decodedBytes = Base64.getDecoder().decode(nv.getQrCode());
+    @RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)
+	public void qrcode(@PathVariable("id") long id ,HttpServletResponse response) throws Exception {
+        NhanVien nhanVien = nhanVienService.findBymaNV(id);
+        byte[] decodedBytes = Base64.getDecoder().decode(nhanVien.getQrCode());
 		response.setContentType("image/png");
 		OutputStream outputStream = response.getOutputStream();
 		outputStream.write(decodedBytes);
 		outputStream.flush();
 		outputStream.close();
+        
 	}
 }

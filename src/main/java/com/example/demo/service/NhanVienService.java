@@ -16,4 +16,5 @@ public interface NhanVienService {
     public boolean deleteById(int id) ;
     public NhanVien updateNhanVien(NhanVien nV,Long id) ;
     List<NhanVien> search(String keyword);
+    NhanVien findBymaNV(Long maNV);
 }

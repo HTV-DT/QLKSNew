@@ -29,6 +29,11 @@ public class NhanVienServiceImpl implements NhanVienService{
     }
 
     @Override
+    public NhanVien findBymaNV(Long maNV){
+        return nhanVienRepository.findBymaNV(maNV);
+    }
+
+    @Override
     public List<NhanVien> search(String keyword){
         if (keyword != null) {
             return nhanVienRepository.search(keyword);
