@@ -150,7 +150,9 @@ public class AuthController {
         addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
         addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
         addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan);
-        
+        byte[] qrCode =BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
+        String s = Base64.getEncoder().encodeToString(qrCode);
+        nhanVien.setQrCode(s);
         return new ResponseEntity<NhanVien>(nhanVienService.updateNhanVien(nhanVien, id), HttpStatus.OK);
 	}
 
@@ -223,6 +225,6 @@ public class AuthController {
 		outputStream.write(decodedBytes);
 		outputStream.flush();
 		outputStream.close();
-        
+
 	}
 }
