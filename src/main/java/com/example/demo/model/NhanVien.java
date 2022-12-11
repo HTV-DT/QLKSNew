@@ -71,8 +71,11 @@ public class NhanVien {
         @JoinColumn(name = "phongban_id") // thông qua khóa ngoại phongban_id
         private PhongBan phongBan;
 
+        @ManyToOne 
+        @JoinColumn(name = "chucvu_id") // thông qua khóa ngoại phongban_id
+        private ChucVu chucVu;
 
-        public NhanVien( String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT, PhongBan phongBan) {
+        public NhanVien( String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT, PhongBan phongBan,ChucVu chucVu) {
                 this.tenNhanSu = tenNhanSu;
                 this.cCCD = cCCD;
                 this.email = email;
@@ -84,6 +87,7 @@ public class NhanVien {
                 this.soTK = soTK;
                 this.sDT = sDT;
                 this.phongBan = phongBan;
+                this.chucVu = chucVu;
         }
         
        /*  public NhanVien(String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh,
@@ -197,6 +201,16 @@ public class NhanVien {
         public void setPhongBan(PhongBan phongBan) {
                 this.phongBan = phongBan;
         }
+
+
+        public ChucVu getChucVu() {
+                return this.chucVu;
+        }
+
+        public void setChucVu(ChucVu chucVu) {
+                this.chucVu = chucVu;
+        }
+
 
         public Boolean isTrangThai() {
                 return this.trangThai;

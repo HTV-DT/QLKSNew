@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.helper.Helper;
+import com.example.demo.model.ChucVu;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.PhongBan;
 import com.example.demo.repository.NhanVienRepository;
+import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
 
 @Service
@@ -22,6 +24,9 @@ public class NhanVienServiceImpl implements NhanVienService{
     NhanVienRepository nhanVienRepository;
     @Autowired //tự động truyền tải các mối quan hệ
     PhongBanServiceImpl phongBanImpl;
+
+    @Autowired //tự động truyền tải các mối quan hệ
+    ChucVuService chucVuService;
 
     @Override
     public Optional<NhanVien> findByCCCD(String cCCD) {
@@ -69,7 +74,9 @@ public class NhanVienServiceImpl implements NhanVienService{
     public void saveFile(MultipartFile file) {
         try {
             List<PhongBan> pb =  phongBanImpl.findAllPhongBan();
-            List<NhanVien> nhanViens = Helper.convertExcelToListOfProduct(file.getInputStream(),pb);
+            List<ChucVu> cv =  chucVuService.findAllChucVu();
+            List<NhanVien> nhanViens = Helper.convertExcelToListOfProduct(file.getInputStream(),pb,cv);
+           
             this.nhanVienRepository.saveAll(nhanViens);
         } catch (IOException e) {
             e.printStackTrace();
@@ -103,6 +110,8 @@ public class NhanVienServiceImpl implements NhanVienService{
 		nhanVien.setQuocTich(nV.getQuocTich());
 		nhanVien.setNgayKyHopDong(nV.getNgayKyHopDong());
 		nhanVien.setSoTK(nV.getSoTK());
+        nhanVien.setPhongBan(nV.getPhongBan());
+        nhanVien.setChucVu(nV.getChucVu());
 		return nhanVienRepository.save(nhanVien);   
     }
    

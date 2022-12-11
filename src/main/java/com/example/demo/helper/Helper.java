@@ -7,12 +7,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.ChucVu;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.PhongBan;
 import com.example.demo.service.PhongBanService;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class Helper {
 
     //convert excel to list of nhanvien
 
-    public static List<NhanVien> convertExcelToListOfProduct(InputStream is, List<PhongBan> pb) {
+    public static List<NhanVien> convertExcelToListOfProduct(InputStream is, List<PhongBan> pb,List<ChucVu> cv) {
         List<NhanVien> list = new ArrayList<>();
 
         try {
@@ -102,12 +104,22 @@ public class Helper {
                                 }
                             }
                             break;
+                        case 11:
+                            Long b = ((long) cell.getNumericCellValue());
+                            for (ChucVu chucVu : cv) {
+                                if (chucVu.getMaCV() == b) {
+                                    p.setChucVu(chucVu);
+                                }
+                            }
+                            break;
                         default:
                             break;
                     }
                     cid++;
                 }
-
+                byte[] qrCode =BarCode.getQRCodeImage(p.toString(), 200, 200);
+                String s = Base64.getEncoder().encodeToString(qrCode);
+                p.setQrCode(s);
                 list.add(p);
             }
         } catch (Exception e) {

@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.request.AddChucVuForm;
 import com.example.demo.dto.request.AddPhongBanForm;
 import com.example.demo.dto.response.ResponMessage;
+import com.example.demo.model.ChucVu;
 import com.example.demo.model.PhongBan;
 import com.example.demo.service.PhongBanService;
+import com.example.demo.service.ChucVuService;
 
 
 @RestController
@@ -27,6 +30,8 @@ import com.example.demo.service.PhongBanService;
 public class PhongBanController {
     @Autowired
     PhongBanService phongBanService;
+    @Autowired
+    ChucVuService ChucVuService;
 
    
     @PostMapping("/addPB")
@@ -58,9 +63,47 @@ public class PhongBanController {
 	}
 
     @GetMapping("/PBs") // List Phong ban
-    public ResponseEntity<List<PhongBan>> listRegisteredNhanVien() {
+    public ResponseEntity<List<PhongBan>> listRegisteredPhongBan() {
         List<PhongBan> nhanVien = phongBanService.findAllPhongBan();
         return ResponseEntity.ok(nhanVien);
     }
 
+
+//Chức Vu
+
+
+
+@PostMapping("/addCV")
+public ResponseEntity<?> register(@Valid @RequestBody AddChucVuForm addChucVuForm) {
+    if (ChucVuService.existsBytenCV(addChucVuForm.getTenCV())) {
+        return new ResponseEntity<>(new ResponMessage("Phòng ban đã tồn tại"), HttpStatus.OK);
+    }
+    ChucVu chucVu = new ChucVu(addChucVuForm.getTenCV(),addChucVuForm.getMoTaCV());
+    ChucVuService.save(chucVu);
+    return new ResponseEntity<>(new ResponMessage("yes"), HttpStatus.OK);
+}
+
+
+@DeleteMapping("/deleteCV/{id}")
+public  ResponseEntity<String> deleteChucVu(@PathVariable("id") int id) {
+    if(ChucVuService.deleteById(id)==true)
+        {
+            return new ResponseEntity<String>("Phong Ban deleted successfully!.", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("Delete failed", HttpStatus.OK);
+
+}
+
+
+@PutMapping("/updateCV/{id}")
+public ResponseEntity<ChucVu> updateEmployee(@PathVariable("id") long id ,@RequestBody AddChucVuForm addChucVuForm){
+    ChucVu ChucVu = new ChucVu(addChucVuForm.getTenCV(),addChucVuForm.getMoTaCV());
+    return new ResponseEntity<ChucVu>(ChucVuService.updateChucVu(ChucVu, id), HttpStatus.OK);
+}
+
+@GetMapping("/CVs") // List Phong ban
+public ResponseEntity<List<ChucVu>> listRegisteredChucVu() {
+    List<ChucVu> nhanVien = ChucVuService.findAllChucVu();
+    return ResponseEntity.ok(nhanVien);
+}
 }

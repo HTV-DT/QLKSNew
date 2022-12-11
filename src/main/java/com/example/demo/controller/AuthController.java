@@ -9,6 +9,7 @@ import com.example.demo.helper.BarCode;
 import com.example.demo.helper.ExcelExporter;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.CTBangCong;
+import com.example.demo.model.ChucVu;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.PhongBan;
 import com.example.demo.model.Role;
@@ -17,6 +18,7 @@ import com.example.demo.model.User;
 import com.example.demo.security.jwt.JwtProvider;
 import com.example.demo.security.userprincal.UserPrinciple;
 import com.example.demo.service.CTBangCongService;
+import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
 import com.example.demo.service.PhongBanService;
 import com.example.demo.service.impl.RoleServiceImpl;
@@ -65,6 +67,8 @@ public class AuthController {
     NhanVienService nhanVienService;
     @Autowired
     PhongBanService phongBanService;
+    @Autowired
+   ChucVuService chucVuService;
     @Autowired
     CTBangCongService bangCongService;
 
@@ -125,10 +129,11 @@ public class AuthController {
             return new ResponseEntity<>(new ResponMessage("The email existed"), HttpStatus.OK);
         }
         PhongBan phongBan=phongBanService.findBymaPB(addNhanVienForm.getPhongban_id());
+        ChucVu chucVu=chucVuService.findBymaCV(addNhanVienForm.getChucvu_id());
         NhanVien nhanVien = new NhanVien(addNhanVienForm.getTenNhanSu(), addNhanVienForm.getCCCD(),
                 addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
                 addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
-                addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan);
+                addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan,chucVu);
                 byte[] qrCode =BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
                 String s = Base64.getEncoder().encodeToString(qrCode);
                 nhanVien.setQrCode(s);
@@ -146,11 +151,12 @@ public class AuthController {
     @PutMapping("/updateNhanVien/{id}")
 	public ResponseEntity<NhanVien> updateEmployee(@PathVariable("id") long id ,@RequestBody AddNhanVienForm addNhanVienForm){
         PhongBan phongBan=phongBanService.findBymaPB(addNhanVienForm.getPhongban_id());
+        ChucVu chucVu=chucVuService.findBymaCV(addNhanVienForm.getChucvu_id());
         NhanVien nhanVien = new NhanVien(addNhanVienForm.getTenNhanSu(), addNhanVienForm.getCCCD(),
         addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
         addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
-        addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan);
-        byte[] qrCode =BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
+        addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan,chucVu);
+        byte[] qrCode = BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
         String s = Base64.getEncoder().encodeToString(qrCode);
         nhanVien.setQrCode(s);
         return new ResponseEntity<NhanVien>(nhanVienService.updateNhanVien(nhanVien, id), HttpStatus.OK);
