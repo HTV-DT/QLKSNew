@@ -18,7 +18,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
-public class JwtProvider {
+public class JwtProvider {//Tạo Token
     private static final Logger  logger =LoggerFactory.getLogger(JwtProvider.class);
     private String jwtSecret = "vi.huynhthanh@code.vn";
     private int  jwtExpriration=86400;
@@ -29,6 +29,7 @@ public class JwtProvider {
                 .compact();
     }   
     
+    //Các lổi có thể xuất hiện
     public boolean validateToken(String token){
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
@@ -47,6 +48,7 @@ public class JwtProvider {
         return false;
     }    
 
+    //Lấy tên người dùng
     public String getUserNameFromToken(String token){
         String userName =Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
         return userName;

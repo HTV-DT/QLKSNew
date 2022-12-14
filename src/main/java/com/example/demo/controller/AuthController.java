@@ -31,7 +31,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -124,7 +124,8 @@ public class AuthController {
     }
 
     @PostMapping("/addNhanVien")
-    public ResponseEntity<?> register(@Valid @RequestBody AddNhanVienForm addNhanVienForm) {
+    public ResponseEntity<?> register(@Valid @RequestBody AddNhanVienForm addNhanVienForm, BindingResult bindingResult)  {
+        
         if (nhanVienService.existsByEmail(addNhanVienForm.getEmail())) {
             return new ResponseEntity<>(new ResponMessage("The email existed"), HttpStatus.OK);
         }
@@ -134,7 +135,9 @@ public class AuthController {
                 addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
                 addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
                 addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan,chucVu);
-                byte[] qrCode =BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
+
+                System.out.println(nhanVien.toString());
+                byte[] qrCode = BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
                 String s = Base64.getEncoder().encodeToString(qrCode);
                 nhanVien.setQrCode(s);
                 nhanVienService.save(nhanVien);
@@ -156,7 +159,7 @@ public class AuthController {
         addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
         addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
         addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan,chucVu);
-        byte[] qrCode = BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
+        byte[] qrCode =BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
         String s = Base64.getEncoder().encodeToString(qrCode);
         nhanVien.setQrCode(s);
         return new ResponseEntity<NhanVien>(nhanVienService.updateNhanVien(nhanVien, id), HttpStatus.OK);

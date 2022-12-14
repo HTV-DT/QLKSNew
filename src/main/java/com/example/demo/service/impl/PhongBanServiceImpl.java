@@ -36,7 +36,7 @@ public class PhongBanServiceImpl implements PhongBanService {
 
     @Override
     public List<PhongBan> findAllPhongBan() {
-        List<PhongBan> phongBans = phongBanRepository.findAll();
+        List<PhongBan> phongBans = phongBanRepository.ListAll();
         List<PhongBan> dsPB=new ArrayList<>();
         for (PhongBan phongBan : phongBans) {
             if(phongBan.isTrangThaiPB()==true)

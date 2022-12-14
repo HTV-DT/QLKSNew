@@ -20,4 +20,6 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, Long>{
     @Query(value = "SELECT * FROM nhan_vien nv WHERE CONCAT(nv.manv, ' ',nv.ten_nhan_su) LIKE %?1%", nativeQuery=true)
     List<NhanVien> search(String keyword);
     Boolean existsByChucVu(ChucVu chucVu);
+    @Query(value = "SELECT * FROM nhan_vien nv WHERE nv.trang_thai=1", nativeQuery=true)
+    List<NhanVien> ListAll();
 }   

@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "PhongBan")
 public class PhongBan {
@@ -38,6 +40,7 @@ public class PhongBan {
 
     @OneToMany(mappedBy = "phongBan", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (nhanVien) (1 địa điểm có nhiều người ở)
     // MapopedBy trỏ tới tên biến phongBan ở trong nhanVien.
+    @Cascade(value= {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private Collection<NhanVien> nhanViens;
 
 

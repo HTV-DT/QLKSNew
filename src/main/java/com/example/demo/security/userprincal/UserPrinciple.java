@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.demo.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+//biểu diễn một đối tượng người dùng và  thông tin về phân quyền và lần lượt cài đặt các phương thức của interface UserDetails
 public class UserPrinciple implements UserDetails{
 
     private Long id;

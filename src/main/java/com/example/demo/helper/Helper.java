@@ -4,13 +4,12 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.ChucVu;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.PhongBan;
-import com.example.demo.service.PhongBanService;
+
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class Helper {
 
     //convert excel to list of nhanvien
 
-    public static List<NhanVien> convertExcelToListOfProduct(InputStream is, List<PhongBan> pb,List<ChucVu> cv) {
+    public static List<NhanVien> convertExcelToList(InputStream is, List<PhongBan> pb,List<ChucVu> cv) {
         List<NhanVien> list = new ArrayList<>();
 
         try {

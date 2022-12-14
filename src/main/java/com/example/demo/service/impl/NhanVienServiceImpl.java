@@ -59,7 +59,7 @@ public class NhanVienServiceImpl implements NhanVienService{
 
     @Override
     public List<NhanVien> findAllNhanVien() {
-        List<NhanVien> nhanViens = nhanVienRepository.findAll();
+        List<NhanVien> nhanViens = nhanVienRepository.ListAll();
         List<NhanVien> dsNV=new ArrayList<>();
         for (NhanVien nhanVien : nhanViens) {
             if(nhanVien.isTrangThai()==true)
@@ -75,7 +75,7 @@ public class NhanVienServiceImpl implements NhanVienService{
         try {
             List<PhongBan> pb =  phongBanImpl.findAllPhongBan();
             List<ChucVu> cv =  chucVuService.findAllChucVu();
-            List<NhanVien> nhanViens = Helper.convertExcelToListOfProduct(file.getInputStream(),pb,cv);
+            List<NhanVien> nhanViens = Helper.convertExcelToList(file.getInputStream(),pb,cv);
            
             this.nhanVienRepository.saveAll(nhanViens);
         } catch (IOException e) {

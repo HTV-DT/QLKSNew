@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "chucvu")
 public class ChucVu{
@@ -24,8 +26,9 @@ public class ChucVu{
     private String moTaCV;
     private boolean trangThaiCV=true;
 
-    @OneToMany(mappedBy = "chucVu", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (nhanVien) (1 địa điểm có nhiều người ở)
-    // MapopedBy trỏ tới tên biến phongBan ở trong nhanVien.
+    @OneToMany(mappedBy = "chucVu", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (nhanVien) (1 chuc vu có nhiều nhân viên)
+    // MapopedBy trỏ tới tên biến ChucVu ở trong nhanVien.
+    @Cascade(value= {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private Collection<NhanVien> nhanViens;
 
 
@@ -73,12 +76,16 @@ public class ChucVu{
         this.trangThaiCV = trangThaiCV;
     }
 
-    public Collection<NhanVien> getNhanViens() {
-        return this.nhanViens;
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " maCV='" + getMaCV() + "'" +
+            ", tenCV='" + getTenCV() + "'" +
+            ", moTaCV='" + getMoTaCV() + "'" +
+            "}";
     }
 
-    public void setNhanViens(Collection<NhanVien> nhanViens) {
-        this.nhanViens = nhanViens;
-    }
 
 }

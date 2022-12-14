@@ -1,17 +1,14 @@
 package com.example.demo.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.hibernate.type.LongType;
+import org.hibernate.annotations.Cascade;
+
 
 
 @Entity
@@ -31,37 +28,37 @@ public class NhanVien {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long maNV;
-        @NotBlank // Not null
+        @NotBlank (message = "User's tenNhanSu cannot be empty.")
         @Size(min = 3, max = 50)
         private String tenNhanSu;
-        @NotBlank
-        @Size(min = 3, max = 50)
+        @NotBlank(message = "User's cccd cannot be empty.")
+        @Size(min = 9, max = 12)
         private String cCCD;
         // @NaturalId
-        @NotBlank
-        @Size(max = 50)
+        @NotBlank(message = "User's  email cannot be empty.")
+        @Size(max = 100)
         @Email
         private String email;
         // @JsonIgnore Mã hóa
-        @NotBlank
+        @NotBlank(message = "User's  ngaySinh cannot be empty.")
         @Size(min = 6, max = 100)
         private String ngaySinh;
         @Lob
         private String hinhAnh;
-        @NotBlank
+        @NotBlank(message = "User's cannot be empty.")
         @Size(max = 50)
         private String danToc;
-        @NotBlank
+        @NotBlank(message = "User's info cannot be empty.")
         @Size(max = 50)
         private String quocTich;
-        @NotBlank
+        @NotBlank(message = "User's info cannot be empty.")
         @Size(max = 50)
         private String ngayKyHopDong;
-        @NotBlank
+        @NotBlank(message = "User's info cannot be empty.")
         @Size(max = 50)
         private String soTK;
-        @NotBlank
-        @Size(max = 50)
+        @NotBlank(message = "User's info cannot be empty.")
+        @Size(max = 10)
         private String sDT;
         @Lob
         private String qrCode;
@@ -74,6 +71,11 @@ public class NhanVien {
         @ManyToOne 
         @JoinColumn(name = "chucvu_id") // thông qua khóa ngoại phongban_id
         private ChucVu chucVu;
+
+        @OneToMany(mappedBy = "luong", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (nhanVien) (1 địa điểm có nhiều người ở)
+        // MapopedBy trỏ tới tên biến phongBan ở trong nhanVien.
+        @Cascade(value= {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+        private Collection<Luong> luongs;
 
         public NhanVien( String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT, PhongBan phongBan,ChucVu chucVu) {
                 this.tenNhanSu = tenNhanSu;
@@ -206,6 +208,10 @@ public class NhanVien {
         public ChucVu getChucVu() {
                 return this.chucVu;
         }
+        
+        public String getChucVuString() {
+                return this.chucVu.getTenCV();
+        }
 
         public void setChucVu(ChucVu chucVu) {
                 this.chucVu = chucVu;
@@ -235,25 +241,26 @@ public class NhanVien {
                 this.qrCode = qrCode;
         }
        
-      
-
         @Override
         public String toString() {
                 return "{" +
-                        " maNV='" + getMaNV() + "'" +
                         ", tenNhanSu='" + getTenNhanSu() + "'" +
                         ", cCCD='" + getCCCD() + "'" +
                         ", email='" + getEmail() + "'" +
                         ", ngaySinh='" + getNgaySinh() + "'" +
-                        ", hinhAnh='" + getHinhAnh() + "'" +
                         ", danToc='" + getDanToc() + "'" +
                         ", quocTich='" + getQuocTich() + "'" +
                         ", ngayKyHopDong='" + getNgayKyHopDong() + "'" +
                         ", soTK='" + getSoTK() + "'" +
                         ", sDT='" + getSDT() + "'" +
+                        ", qrCode='" + getQrCode() + "'" +
                         ", trangThai='" + isTrangThai() + "'" +
                         ", phongBan='" + getPhongBan() + "'" +
+                        ", chucVu='" + getChucVuString() + "'" +
                         "}";
         }
+
+
+   
 
 }

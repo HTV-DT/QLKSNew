@@ -23,6 +23,9 @@ public class JwtTokenFilter extends OncePerRequestFilter{
     private JwtProvider jwtProvider;
     @Autowired
     private UserDetailsService userDetailsService;
+
+    //Xác định người dùng
+    //request Từ Client trả về Web server và response ngược lại
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -42,6 +45,7 @@ public class JwtTokenFilter extends OncePerRequestFilter{
      }
     filterChain.doFilter(request, response);
     }
+    //Lấy token và gán vào
     private String getJwt(HttpServletRequest request){
         String authHeader=request.getHeader("Authorization");
         if(authHeader != null && authHeader.startsWith("Bearer ")){

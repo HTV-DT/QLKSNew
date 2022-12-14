@@ -36,7 +36,7 @@ public class ChucVuServiceImpl implements ChucVuService {
 
     @Override
     public List<ChucVu> findAllChucVu() {
-        List<ChucVu> ChucVus = chucVuRepository.findAll();
+        List<ChucVu> ChucVus = chucVuRepository.ListAll();
         List<ChucVu> dsCV=new ArrayList<>();
         for (ChucVu ChucVu : ChucVus) {
             if(ChucVu.isTrangThaiCV()==true)
