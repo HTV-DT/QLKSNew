@@ -2,16 +2,16 @@ package com.example.demo.dto.request;
 
 public class AddPhongBanForm {
     private String tenPB;
-    private String moTaPB;
+    private String moTa;
 
 
     public AddPhongBanForm() {
     }
 
 
-    public AddPhongBanForm(String tenPB, String moTaPB) {
+    public AddPhongBanForm(String tenPB, String moTa) {
         this.tenPB = tenPB;
-        this.moTaPB = moTaPB;
+        this.moTa = moTa;
     }
 
     public String getTenPB() {
@@ -22,12 +22,12 @@ public class AddPhongBanForm {
         this.tenPB = tenPB;
     }
 
-    public String getMoTaPB() {
-        return this.moTaPB;
+    public String getMoTa() {
+        return this.moTa;
     }
 
-    public void setMoTaPB(String moTaPB) {
-        this.moTaPB = moTaPB;
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
     }
    
 }

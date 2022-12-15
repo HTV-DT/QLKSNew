@@ -39,11 +39,11 @@ public class PhongBanController {
         if (phongBanService.existsBytenPB(addPhongBanForm.getTenPB())) {
             return new ResponseEntity<>(new ResponMessage("Phòng ban đã tồn tại"), HttpStatus.OK);
         }
-        PhongBan phongBan = new PhongBan(addPhongBanForm.getTenPB(),addPhongBanForm.getMoTaPB());
+        PhongBan phongBan = new PhongBan(addPhongBanForm.getTenPB(),addPhongBanForm.getMoTa());
         phongBanService.save(phongBan);
         return new ResponseEntity<>(new ResponMessage("yes"), HttpStatus.OK);
     }
-
+    
 
     @DeleteMapping("/deletePB/{id}")
     public  ResponseEntity<String> deleteNhanVien(@PathVariable("id") int id) {
@@ -58,7 +58,7 @@ public class PhongBanController {
 
     @PutMapping("/updatePB/{id}")
 	public ResponseEntity<PhongBan> updateEmployee(@PathVariable("id") long id ,@RequestBody AddPhongBanForm addPhongBanForm){
-        PhongBan phongBan = new PhongBan(addPhongBanForm.getTenPB(),addPhongBanForm.getMoTaPB());
+        PhongBan phongBan = new PhongBan(addPhongBanForm.getTenPB(),addPhongBanForm.getMoTa());
         return new ResponseEntity<PhongBan>(phongBanService.updatePhongBan(phongBan, id), HttpStatus.OK);
 	}
 

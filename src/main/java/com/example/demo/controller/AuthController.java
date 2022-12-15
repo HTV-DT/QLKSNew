@@ -173,13 +173,14 @@ public class AuthController {
 
     @PostMapping("/nhanvien/upload") // upload list NhanVien file excel
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
-        if (Helper.checkExcelFormat(file)) {
+        if(Helper.checkExcelFormat(file)){
             // true
             this.nhanVienService.saveFile(file);
-
             return new ResponseEntity<>(new ResponMessage("yes"), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(new ResponMessage("No"), HttpStatus.OK);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file ");
+       
     }
 
     @GetMapping("export") // export excel

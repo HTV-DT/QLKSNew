@@ -36,15 +36,8 @@ public class ChucVuServiceImpl implements ChucVuService {
 
     @Override
     public List<ChucVu> findAllChucVu() {
-        List<ChucVu> ChucVus = chucVuRepository.ListAll();
-        List<ChucVu> dsCV=new ArrayList<>();
-        for (ChucVu ChucVu : ChucVus) {
-            if(ChucVu.isTrangThaiCV()==true)
-                {
-                    dsCV.add(ChucVu);
-                }
-        }
-        return dsCV;
+        List<ChucVu> ChucVus = chucVuRepository.findAll();
+        return ChucVus;
     }
 
     @Override
@@ -69,6 +62,7 @@ public class ChucVuServiceImpl implements ChucVuService {
     public ChucVu updateChucVu(ChucVu CV, Long id) {
         ChucVu ChucVu = chucVuRepository.findBymaCV(id);
 		ChucVu.setTenCV(CV.getTenCV());
+        ChucVu.setMoTaCV(CV.getMoTaCV());
         return chucVuRepository.save(ChucVu);   
     }
 

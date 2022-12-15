@@ -15,30 +15,26 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "luong")
 public class Luong{
-    @org.springframework.data.annotation.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long maSoLuong;
     @NotBlank // Not null
     @Size(min = 0, max = 50)
     private Double LuongCoBan;
-    private int soGioLam;
+    private Double soGioLam;
     private Date ngay;
 
-    @ManyToOne 
-    @JoinColumn(name = "nhanvien_id")
-    private NhanVien nhanVien;
 
     public Luong() {
 
     }
 
-    public Luong(Long maSoLuong, Double LuongCoBan, int soGioLam, NhanVien nhanVien) {
-        this.maSoLuong = maSoLuong;
+    public Luong( Double LuongCoBan, Double soGioLam, Date ngay) {
         this.LuongCoBan = LuongCoBan;
         this.soGioLam = soGioLam;
-        this.nhanVien = nhanVien;
+        this.ngay = ngay;
+       
     }
-
 
     public Long getMaSoLuong() {
         return this.maSoLuong;
@@ -56,20 +52,22 @@ public class Luong{
         this.LuongCoBan = LuongCoBan;
     }
 
-    public int getSoGioLam() {
+    public Double getSoGioLam() {
         return this.soGioLam;
     }
 
-    public void setSoGioLam(int soGioLam) {
+    public void setSoGioLam(Double soGioLam) {
         this.soGioLam = soGioLam;
     }
 
-    public NhanVien getNhanVien() {
-        return this.nhanVien;
+    public Date getNgay() {
+        return this.ngay;
     }
 
-    public void setNhanVien(NhanVien nhanVien) {
-        this.nhanVien = nhanVien;
+    public void setNgay(Date ngay) {
+        this.ngay = ngay;
     }
+
+  
 
 }

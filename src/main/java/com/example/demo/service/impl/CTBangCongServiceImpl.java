@@ -28,7 +28,6 @@ public class CTBangCongServiceImpl implements CTBangCongService{
             List<NhanVien> ds = nhanVienRepository.findAll();
             List<CTBangCong> bangCong= BangCongImport.convertExcelToListOfProduct(file.getInputStream(),ds);
             ctBangCongRepository.saveAll(bangCong);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

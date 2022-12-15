@@ -36,15 +36,8 @@ public class PhongBanServiceImpl implements PhongBanService {
 
     @Override
     public List<PhongBan> findAllPhongBan() {
-        List<PhongBan> phongBans = phongBanRepository.ListAll();
-        List<PhongBan> dsPB=new ArrayList<>();
-        for (PhongBan phongBan : phongBans) {
-            if(phongBan.isTrangThaiPB()==true)
-                {
-                    dsPB.add(phongBan);
-                }
-        }
-        return dsPB;
+        List<PhongBan> phongBans = phongBanRepository.findAll();
+        return phongBans;
     }
 
     @Override
@@ -69,6 +62,7 @@ public class PhongBanServiceImpl implements PhongBanService {
     public PhongBan updatePhongBan(PhongBan pB, Long id) {
         PhongBan phongBan = phongBanRepository.findBymaPB(id);
 		phongBan.setTenPB(pB.getTenPB());
+        phongBan.setMoTa(pB.getMoTa());
         return phongBanRepository.save(phongBan);   
     }
 

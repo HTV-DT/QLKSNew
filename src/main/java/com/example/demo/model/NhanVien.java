@@ -58,7 +58,7 @@ public class NhanVien {
         @Size(max = 50)
         private String soTK;
         @NotBlank(message = "User's info cannot be empty.")
-        @Size(max = 10)
+        @Size(max = 50)
         private String sDT;
         @Lob
         private String qrCode;
@@ -71,11 +71,6 @@ public class NhanVien {
         @ManyToOne 
         @JoinColumn(name = "chucvu_id") // thông qua khóa ngoại phongban_id
         private ChucVu chucVu;
-
-        @OneToMany(mappedBy = "luong", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (nhanVien) (1 địa điểm có nhiều người ở)
-        // MapopedBy trỏ tới tên biến phongBan ở trong nhanVien.
-        @Cascade(value= {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-        private Collection<Luong> luongs;
 
         public NhanVien( String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT, PhongBan phongBan,ChucVu chucVu) {
                 this.tenNhanSu = tenNhanSu;
@@ -229,9 +224,6 @@ public class NhanVien {
         public void setTrangThai(Boolean trangThai) {
                 this.trangThai = trangThai;
         }
-
-
-
 
         public String getQrCode() {
                 return this.qrCode;

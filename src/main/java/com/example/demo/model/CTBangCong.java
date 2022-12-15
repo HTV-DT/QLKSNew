@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +22,6 @@ public class CTBangCong {
     private Time gioRa;
     @NotBlank
     private String maLoaiCong;
-    
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "bangcong",
@@ -92,5 +93,8 @@ public class CTBangCong {
     public void setNv(Set<NhanVien> nv) {
         this.nv = nv;
     }
+
+
+
 
 }

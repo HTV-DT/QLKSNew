@@ -12,6 +12,8 @@ import com.example.demo.model.PhongBan;
 
 
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Iterator;
@@ -37,7 +39,7 @@ public class Helper {
 
     public static List<NhanVien> convertExcelToList(InputStream is, List<PhongBan> pb,List<ChucVu> cv) {
         List<NhanVien> list = new ArrayList<>();
-
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         try {
 
 
@@ -75,7 +77,7 @@ public class Helper {
                             p.setEmail(cell.getStringCellValue());
                             break;
                         case 3:
-                            p.setNgaySinh(cell.getStringCellValue());
+                            p.setNgaySinh(formatter.format(cell.getDateCellValue()));
                             break;
                         case 4:
                             p.setHinhAnh(cell.getStringCellValue());
@@ -87,13 +89,13 @@ public class Helper {
                             p.setQuocTich(cell.getStringCellValue());
                             break;
                         case 7:
-                            p.setNgayKyHopDong(cell.getStringCellValue());
+                            p.setNgayKyHopDong(formatter.format(cell.getDateCellValue()));
                             break;
                         case 8:
-                            p.setSoTK(cell.getStringCellValue());
+                            p.setSoTK(String.valueOf(cell.getNumericCellValue()));
                             break;
                         case 9:
-                            p.setSDT(cell.getStringCellValue());
+                            p.setSDT(String.valueOf(cell.getNumericCellValue()));
                             break;
                         case 10:
                             Long a = ((long) cell.getNumericCellValue());

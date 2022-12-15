@@ -59,15 +59,8 @@ public class NhanVienServiceImpl implements NhanVienService{
 
     @Override
     public List<NhanVien> findAllNhanVien() {
-        List<NhanVien> nhanViens = nhanVienRepository.ListAll();
-        List<NhanVien> dsNV=new ArrayList<>();
-        for (NhanVien nhanVien : nhanViens) {
-            if(nhanVien.isTrangThai()==true)
-                {
-                    dsNV.add(nhanVien);
-                }
-        }
-        return dsNV;
+        List<NhanVien> nhanViens = nhanVienRepository.findAll();
+        return nhanViens;
     }
     
     @Override
@@ -76,7 +69,6 @@ public class NhanVienServiceImpl implements NhanVienService{
             List<PhongBan> pb =  phongBanImpl.findAllPhongBan();
             List<ChucVu> cv =  chucVuService.findAllChucVu();
             List<NhanVien> nhanViens = Helper.convertExcelToList(file.getInputStream(),pb,cv);
-           
             this.nhanVienRepository.saveAll(nhanViens);
         } catch (IOException e) {
             e.printStackTrace();
