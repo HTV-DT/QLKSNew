@@ -1,13 +1,9 @@
 package com.example.demo.model;
 
-import java.util.Collection;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.Cascade;
 
 
 
@@ -32,7 +28,7 @@ public class NhanVien {
         @Size(min = 3, max = 50)
         private String tenNhanSu;
         @NotBlank(message = "User's cccd cannot be empty.")
-        @Size(min = 9, max = 12)
+        @Size(min = 9, max = 13)
         private String cCCD;
         // @NaturalId
         @NotBlank(message = "User's  email cannot be empty.")

@@ -8,7 +8,6 @@ import com.example.demo.dto.response.ResponMessage;
 import com.example.demo.helper.BarCode;
 import com.example.demo.helper.ExcelExporter;
 import com.example.demo.helper.Helper;
-import com.example.demo.model.CTBangCong;
 import com.example.demo.model.ChucVu;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.PhongBan;
@@ -17,7 +16,6 @@ import com.example.demo.model.RoleName;
 import com.example.demo.model.User;
 import com.example.demo.security.jwt.JwtProvider;
 import com.example.demo.security.userprincal.UserPrinciple;
-import com.example.demo.service.CTBangCongService;
 import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
 import com.example.demo.service.PhongBanService;
@@ -69,8 +67,7 @@ public class AuthController {
     PhongBanService phongBanService;
     @Autowired
    ChucVuService chucVuService;
-    @Autowired
-    CTBangCongService bangCongService;
+
 
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm) {
@@ -109,6 +106,7 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> login(@Valid @RequestBody SignInForm signInForm) {
+        //Xác thực
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInForm.getUsername(), signInForm.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -200,24 +198,7 @@ public class AuthController {
         excelExporter.export(response);
     }
 
-    @PostMapping("/bangcong/upload") // upload list bangcong file excel
-    public ResponseEntity<?> uploadBC(@RequestParam("file") MultipartFile file) {
-        if (Helper.checkExcelFormat(file)) {
-            // true
-           bangCongService.saveFile(file);
-
-            return new ResponseEntity<>(new ResponMessage("yes"), HttpStatus.OK);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file ");
-    }
-
-    @GetMapping("/bangCongs") // List bangcongs
-    public ResponseEntity<List<CTBangCong>> listRegisteredBangCong() {
-        List<CTBangCong> bangCongs = bangCongService.findAllBangCong();
-        return ResponseEntity.ok(bangCongs);
-    }
-
-    
+   
     @PostMapping("/search")
     public ResponseEntity<?> Search(@Valid @RequestBody AddNhanVienForm addNhanVienForm) {
        List<NhanVien> nhanViens= nhanVienService.search(addNhanVienForm.getTenNhanSu());
