@@ -26,10 +26,6 @@ public class ChucVu{
     private String moTaCV;
     private boolean trangThaiCV=true;
 
-    @OneToMany(mappedBy = "chucVu", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (nhanVien) (1 chuc vu có nhiều nhân viên)
-    // MapopedBy trỏ tới tên biến ChucVu ở trong nhanVien.
-    @Cascade(value= {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    private Collection<NhanVien> nhanViens;
 
 
     public ChucVu() {

@@ -97,22 +97,7 @@ public class Helper {
                         case 9:
                             p.setSDT(String.valueOf(cell.getNumericCellValue()));
                             break;
-                        case 10:
-                            Long a = ((long) cell.getNumericCellValue());
-                            for (PhongBan phongBan : pb) {
-                                if (phongBan.getMaPB() == a) {
-                                    p.setPhongBan(phongBan);
-                                }
-                            }
-                            break;
-                        case 11:
-                            Long b = ((long) cell.getNumericCellValue());
-                            for (ChucVu chucVu : cv) {
-                                if (chucVu.getMaCV() == b) {
-                                    p.setChucVu(chucVu);
-                                }
-                            }
-                            break;
+                       
                         default:
                             break;
                     }

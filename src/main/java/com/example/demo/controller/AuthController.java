@@ -127,12 +127,11 @@ public class AuthController {
         if (nhanVienService.existsByEmail(addNhanVienForm.getEmail())) {
             return new ResponseEntity<>(new ResponMessage("The email existed"), HttpStatus.OK);
         }
-        PhongBan phongBan=phongBanService.findBymaPB(addNhanVienForm.getPhongban_id());
-        ChucVu chucVu=chucVuService.findBymaCV(addNhanVienForm.getChucvu_id());
+
         NhanVien nhanVien = new NhanVien(addNhanVienForm.getTenNhanSu(), addNhanVienForm.getCCCD(),
                 addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
                 addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
-                addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan,chucVu);
+                addNhanVienForm.getSoTK(),addNhanVienForm.getSDT());
 
                 System.out.println(nhanVien.toString());
                 byte[] qrCode = BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
@@ -151,12 +150,11 @@ public class AuthController {
 
     @PutMapping("/updateNhanVien/{id}")
 	public ResponseEntity<NhanVien> updateEmployee(@PathVariable("id") long id ,@RequestBody AddNhanVienForm addNhanVienForm){
-        PhongBan phongBan=phongBanService.findBymaPB(addNhanVienForm.getPhongban_id());
-        ChucVu chucVu=chucVuService.findBymaCV(addNhanVienForm.getChucvu_id());
+       
         NhanVien nhanVien = new NhanVien(addNhanVienForm.getTenNhanSu(), addNhanVienForm.getCCCD(),
         addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
         addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
-        addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),phongBan,chucVu);
+        addNhanVienForm.getSoTK(),addNhanVienForm.getSDT());
         byte[] qrCode =BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
         String s = Base64.getEncoder().encodeToString(qrCode);
         nhanVien.setQrCode(s);

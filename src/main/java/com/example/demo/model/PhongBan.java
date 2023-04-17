@@ -28,22 +28,6 @@ public class PhongBan {
     private boolean trangThaiPB=true;
 
 
-    public String getMoTa() {
-        return this.moTa;
-    }
-
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
-    }
-
-
-
-    @OneToMany(mappedBy = "phongBan", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (nhanVien) (1 địa điểm có nhiều người ở)
-    // MapopedBy trỏ tới tên biến phongBan ở trong nhanVien.
-    @Cascade(value= {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    private Collection<NhanVien> nhanViens;
-
-
     public PhongBan(Long maPB, String tenPB, String moTa, boolean trangThaiPB) {
         this.maPB = maPB;
         this.tenPB = tenPB;
@@ -62,7 +46,7 @@ public class PhongBan {
     public PhongBan() {
     }
 
-
+    
     public Long getMaPB() {
         return this.maPB;
     }
@@ -79,14 +63,14 @@ public class PhongBan {
         this.tenPB = tenPB;
     }
 
-   
-    @Override
-    public String toString() {
-        return "{" +
-                " maPB='" + getMaPB() + "'" +
-                ", tenPB='" + getTenPB() + "'" +
-                "}";
+    public String getMoTa() {
+        return this.moTa;
     }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
+    }
+
     public boolean isTrangThaiPB() {
         return this.trangThaiPB;
     }
@@ -99,4 +83,15 @@ public class PhongBan {
         this.trangThaiPB = trangThaiPB;
     }
 
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " maPB='" + getMaPB() + "'" +
+            ", tenPB='" + getTenPB() + "'" +
+            ", moTa='" + getMoTa() + "'" +
+            ", trangThaiPB='" + isTrangThaiPB() + "'" +
+            "}";
+    }
 }

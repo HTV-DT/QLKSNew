@@ -45,10 +45,7 @@ public class PhongBanServiceImpl implements PhongBanService {
         try {
             //phongBanRepository.deleteById((long) id); 
             PhongBan phongBan = phongBanRepository.findBymaPB(Long.valueOf(id));
-            if(nhanVienRepository.existsByPhongBan(phongBan)){
-                System.out.println("Xóa thất bại");
-                return false;
-            }
+         
             phongBan.setTrangThaiPB(false);
             phongBanRepository.save(phongBan);
             return true;

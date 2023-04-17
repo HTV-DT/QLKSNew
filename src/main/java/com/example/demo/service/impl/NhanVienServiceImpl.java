@@ -102,8 +102,6 @@ public class NhanVienServiceImpl implements NhanVienService{
 		nhanVien.setQuocTich(nV.getQuocTich());
 		nhanVien.setNgayKyHopDong(nV.getNgayKyHopDong());
 		nhanVien.setSoTK(nV.getSoTK());
-        nhanVien.setPhongBan(nV.getPhongBan());
-        nhanVien.setChucVu(nV.getChucVu());
 		return nhanVienRepository.save(nhanVien);   
     }
    

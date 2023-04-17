@@ -45,10 +45,7 @@ public class ChucVuServiceImpl implements ChucVuService {
         try {
             //ChucVuRepository.deleteById((long) id); 
             ChucVu chucVu = chucVuRepository.findBymaCV(Long.valueOf(id));
-            if(nhanVienRepository.existsByChucVu(chucVu)){
-                System.out.println("Xóa thất bại");
-                return false;
-            }
+          
             chucVu.setTrangThaiCV(false);
             chucVuRepository.save(chucVu);
             return true;

@@ -13,8 +13,7 @@ public class AddNhanVienForm {
     private String ngayKyHopDong;
     private String soTK;
     private String sDT;
-    private Long phongban_id;
-    private Long chucvu_id;
+
 
 
   
@@ -22,7 +21,7 @@ public class AddNhanVienForm {
     }
 
 
-    public AddNhanVienForm(String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT, Long phongban_id, Long chucvu_id) {
+    public AddNhanVienForm(String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT) {
         this.tenNhanSu = tenNhanSu;
         this.cCCD = cCCD;
         this.email = email;
@@ -33,8 +32,7 @@ public class AddNhanVienForm {
         this.ngayKyHopDong = ngayKyHopDong;
         this.soTK = soTK;
         this.sDT = sDT;
-        this.phongban_id = phongban_id;
-        this.chucvu_id = chucvu_id;
+       
     }
   
 
@@ -131,21 +129,6 @@ public class AddNhanVienForm {
     }
 
 
-    public Long getPhongban_id() {
-        return this.phongban_id;
-    }
-
-    public void setPhongban_id(Long phongban_id) {
-        this.phongban_id = phongban_id;
-    }
- 
-
-    public Long getChucvu_id() {
-        return this.chucvu_id;
-    }
-
-    public void setChucvu_id(Long chucvu_id) {
-        this.chucvu_id = chucvu_id;
-    }
+    
 
 }

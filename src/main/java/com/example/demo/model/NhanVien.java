@@ -60,15 +60,8 @@ public class NhanVien {
         private String qrCode;
         private Boolean trangThai=true;
 
-        @ManyToOne 
-        @JoinColumn(name = "phongban_id") // thông qua khóa ngoại phongban_id
-        private PhongBan phongBan;
 
-        @ManyToOne 
-        @JoinColumn(name = "chucvu_id") // thông qua khóa ngoại phongban_id
-        private ChucVu chucVu;
-
-        public NhanVien( String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT, PhongBan phongBan,ChucVu chucVu) {
+        public NhanVien( String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT) {
                 this.tenNhanSu = tenNhanSu;
                 this.cCCD = cCCD;
                 this.email = email;
@@ -79,8 +72,7 @@ public class NhanVien {
                 this.ngayKyHopDong = ngayKyHopDong;
                 this.soTK = soTK;
                 this.sDT = sDT;
-                this.phongBan = phongBan;
-                this.chucVu = chucVu;
+              
         }
         
        /*  public NhanVien(String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh,
@@ -187,26 +179,6 @@ public class NhanVien {
                 this.sDT = sDT;
         }
 
-        public PhongBan getPhongBan() {
-                return this.phongBan;
-        }
-
-        public void setPhongBan(PhongBan phongBan) {
-                this.phongBan = phongBan;
-        }
-
-
-        public ChucVu getChucVu() {
-                return this.chucVu;
-        }
-        
-        public String getChucVuString() {
-                return this.chucVu.getTenCV();
-        }
-
-        public void setChucVu(ChucVu chucVu) {
-                this.chucVu = chucVu;
-        }
 
 
         public Boolean isTrangThai() {
@@ -243,8 +215,6 @@ public class NhanVien {
                         ", sDT='" + getSDT() + "'" +
                         ", qrCode='" + getQrCode() + "'" +
                         ", trangThai='" + isTrangThai() + "'" +
-                        ", phongBan='" + getPhongBan() + "'" +
-                        ", chucVu='" + getChucVuString() + "'" +
                         "}";
         }
 
