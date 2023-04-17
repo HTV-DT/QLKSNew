@@ -62,9 +62,6 @@ public class PhongBan {
     public PhongBan() {
     }
 
-    public PhongBan(String tenPB) {
-        this.tenPB = tenPB;
-    }
 
     public Long getMaPB() {
         return this.maPB;
