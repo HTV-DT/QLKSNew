@@ -59,9 +59,10 @@ public class NhanVien {
         @Lob
         private String qrCode;
         private Boolean trangThai=true;
+        private Boolean gioiTinh=true;
 
 
-        public NhanVien( String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT) {
+        public NhanVien( String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh, String danToc, String quocTich, String ngayKyHopDong, String soTK, String sDT,boolean gioiTich) {
                 this.tenNhanSu = tenNhanSu;
                 this.cCCD = cCCD;
                 this.email = email;
@@ -72,7 +73,7 @@ public class NhanVien {
                 this.ngayKyHopDong = ngayKyHopDong;
                 this.soTK = soTK;
                 this.sDT = sDT;
-              
+                this.gioiTinh=gioiTinh;
         }
         
        /*  public NhanVien(String tenNhanSu, String cCCD, String email, String ngaySinh, String hinhAnh,
@@ -200,7 +201,20 @@ public class NhanVien {
         public void setQrCode(String qrCode) {
                 this.qrCode = qrCode;
         }
+
+        public Boolean isGioiTinh() {
+                return this.gioiTinh;
+        }
+
+        public Boolean getGioiTinh() {
+                return this.gioiTinh;
+        }
+
+        public void setGioiTinh(Boolean gioiTinh) {
+                this.gioiTinh = gioiTinh;
+        }
        
+
         @Override
         public String toString() {
                 return "{" +

@@ -131,7 +131,7 @@ public class AuthController {
         NhanVien nhanVien = new NhanVien(addNhanVienForm.getTenNhanSu(), addNhanVienForm.getCCCD(),
                 addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
                 addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
-                addNhanVienForm.getSoTK(),addNhanVienForm.getSDT());
+                addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),addNhanVienForm.getGt());
 
                 System.out.println(nhanVien.toString());
                 byte[] qrCode = BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
@@ -154,7 +154,7 @@ public class AuthController {
         NhanVien nhanVien = new NhanVien(addNhanVienForm.getTenNhanSu(), addNhanVienForm.getCCCD(),
         addNhanVienForm.getEmail(), addNhanVienForm.getNgaySinh(), addNhanVienForm.getHinhAnh(),
         addNhanVienForm.getDanToc(), addNhanVienForm.getQuocTich(), addNhanVienForm.getNgayKyHopDong(),
-        addNhanVienForm.getSoTK(),addNhanVienForm.getSDT());
+        addNhanVienForm.getSoTK(),addNhanVienForm.getSDT(),addNhanVienForm.getGt());
         byte[] qrCode =BarCode.getQRCodeImage(nhanVien.toString(), 200, 200);
         String s = Base64.getEncoder().encodeToString(qrCode);
         nhanVien.setQrCode(s);
