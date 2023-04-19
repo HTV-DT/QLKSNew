@@ -10,6 +10,7 @@ import com.example.demo.helper.ExcelExporter;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.ChucVu;
 import com.example.demo.model.NhanVien;
+import com.example.demo.model.Phong;
 import com.example.demo.model.PhongBan;
 import com.example.demo.model.Role;
 import com.example.demo.model.RoleName;
@@ -19,6 +20,7 @@ import com.example.demo.security.userprincal.UserPrinciple;
 import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
 import com.example.demo.service.PhongBanService;
+import com.example.demo.service.PhongService;
 import com.example.demo.service.impl.RoleServiceImpl;
 import com.example.demo.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +65,8 @@ public class AuthController {
     JwtProvider jwtProvider;
     @Autowired
     NhanVienService nhanVienService;
+    @Autowired
+    PhongService phongService;
     @Autowired
     PhongBanService phongBanService;
     @Autowired
@@ -216,4 +220,9 @@ public class AuthController {
 		outputStream.close();
 
 	}
+    @GetMapping("/Phongs") // List NhanVien
+    public ResponseEntity<List<Phong>> listRegisteredPhong() {
+        List<Phong> phongs = phongService.findAllPhong();
+        return ResponseEntity.ok(phongs);
+    }
 }
